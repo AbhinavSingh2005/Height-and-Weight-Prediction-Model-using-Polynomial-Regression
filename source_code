@@ -8,3 +8,41 @@ from sklearn.preprocessing import PolynomialFeatures
 
 print("Libraries import successful")
 
+# load the dataset
+data = pd.read_csv("HeightWeight.csv")
+print("File read successful")
+
+# create dataframe 
+df = pd.DataFrame(data)
+df
+
+# separating features and labels 
+X = df[["Weight(Pounds)"]].values 
+y = df[["Height(Inches)"]].values
+
+# dividing the data for training and testing 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+print("Data separated for training and testing sucessfully")
+
+poly = PolynomialFeatures(degree=2)
+
+X_poly_train = poly.fit_transform(X_train)   
+X_poly_test = poly.transform(X_test)
+
+# creating model 
+model = LinearRegression()
+print("Model creation successful")
+
+model.fit(X_poly_train, y_train)             
+y_pred_test = model.predict(X_poly_test)
+
+# training the model 
+model.fit(X_poly_train, y_train)
+
+# plotting the graph
+plt.scatter(X, y, color = "blue")
+plt.plot(X_test, y_pred, color="red")
+plt.xlabel("Weight")
+plt.ylabel("Height")
+plt.legend() 
+
