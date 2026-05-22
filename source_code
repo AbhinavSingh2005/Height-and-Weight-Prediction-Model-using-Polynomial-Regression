@@ -34,7 +34,7 @@ model = LinearRegression()
 print("Model creation successful")
 
 model.fit(X_poly_train, y_train)             
-y_pred_test = model.predict(X_poly_test)
+y_pred = model.predict(X_poly_test)
 
 # training the model 
 model.fit(X_poly_train, y_train)
